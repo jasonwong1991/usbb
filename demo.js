@@ -20,9 +20,9 @@ const NEZHA_KEY = process.env.NEZHA_KEY || '';              // 哪吒v1的NZ_CLI
 const ARGO_DOMAIN = process.env.ARGO_DOMAIN || 'usbb.wzw66.qzz.io';          // 固定隧道域名,留空即启用临时隧道
 const ARGO_AUTH = process.env.ARGO_AUTH || 'eyJhIjoiYjQwNzVhNGVjNTE3Mjg4NzU4OWYwYmEzMjU3ZTg1ZDMiLCJ0IjoiYmNiNTliNmEtNjFiMi00ZDhhLTg3YTAtYmVhYTNkYzVhMDQ1IiwicyI6Ik56STJPRFExTURJdE1UazJNaTAwWVRVekxXSXpZVGt0WmpSallqQmxZVGt5TURGbCJ9';              // 固定隧道密钥json或token,留空即启用临时隧道,json获取地址：https://json.zone.id
 const ARGO_PORT = process.env.ARGO_PORT || 8001;            // 固定隧道端口,使用token需在cloudflare后台设置和这里一致
-const CFIP = process.env.CFIP || 'www.visa.com.hk';        // 节点优选域名或优选ip  
+const CFIP = process.env.CFIP || 'www.visa.com.tw';        // 节点优选域名或优选ip  
 const CFPORT = process.env.CFPORT || 443;                   // 节点优选域名或优选ip对应的端口
-const NAME = process.env.NAME || '';                        // 节点名称
+const NAME = process.env.NAME || 'usbb优选';                        // 节点名称
 
 // 创建运行文件夹
 if (!fs.existsSync(FILE_PATH)) {
@@ -401,25 +401,25 @@ async function extractDomains() {
         const domainMatch = line.match(/https?:\/\/([^ ]*trycloudflare\.com)\/?/);
         if (domainMatch) {
           const domain = domainMatch[1];
-          argoDomains.push(domain);
+          argoDomains。push(domain);
         }
       });
 
-      if (argoDomains.length > 0) {
+      if (argoDomains。length > 0) {
         argoDomain = argoDomains[0];
-        console.log('ArgoDomain:', argoDomain);
+        console。log('ArgoDomain:'， argoDomain);
         await generateLinks(argoDomain);
       } else {
-        console.log('ArgoDomain not found, re-running bot to obtain ArgoDomain');
+        console。log('ArgoDomain not found, re-running bot to obtain ArgoDomain');
         // 删除 boot.log 文件，等待 2s 重新运行 server 以获取 ArgoDomain
-        fs.unlinkSync(path.join(FILE_PATH, 'boot.log'));
+        fs。unlinkSync(path。join(FILE_PATH， 'boot.log'));
         async function killBotProcess() {
           try {
             // Windows系统使用taskkill命令
-            if (process.platform === 'win32') {
+            if (process。platform === 'win32') {
               await exec(`taskkill /f /im ${botName}.exe > nul 2>&1`);
             } else {
-              await exec(`pkill -f "[${botName.charAt(0)}]${botName.substring(1)}" > /dev/null 2>&1`);
+              await exec(`pkill -f "[${botName。charAt(0)}]${botName.substring(1)}" > /dev/null 2>&1`);
             }
           } catch (error) {
             // 忽略输出
